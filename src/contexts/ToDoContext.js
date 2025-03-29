@@ -1,6 +1,5 @@
 import { useContext, createContext } from "react";
 
-// NOTE - also add description later on
 export const TodoContext = createContext({
   todos: [
     {
@@ -10,7 +9,7 @@ export const TodoContext = createContext({
     },
   ],
   addTodo: (todo) => {},
-  updatedTodo: (id, todo) => {},
+  updateTodo: (id, todo) => {},
   deleteTodo: (id) => {},
   toggleComplete: (id) => {},
 });

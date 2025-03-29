@@ -1,11 +1,20 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useTodo } from "../contexts";
 
 function TodoItem({ todo }) {
-
-  const {updatedTodo, deleteTodo, toggleComplete} = useTodo();
+  const { updateTodo, deleteTodo, toggleComplete } = useTodo();
   const [isTodoEditable, setIsTodoEditable] = useState(false);
-  const [todoMsg, setTodoMsg] = useState(todo.title) // title is the main content of each todo, check ToDoContext.js
+  const [todoMsg, setTodoMsg] = useState(todo.title);
+
+  const editTodo = () => {
+    updateTodo(todo.id, { ...todo, todo: todoMsg });
+    setIsTodoEditable(false);
+  };
+
+  const toggleCompleted = () => {
+    toggleComplete(todo.id);
+  };
 
   return (
     <div
@@ -28,21 +37,20 @@ function TodoItem({ todo }) {
         onChange={(e) => setTodoMsg(e.target.value)}
         readOnly={!isTodoEditable}
       />
-      {/* Edit, Save Button */}
+
       <button
         className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50"
         onClick={() => {
           if (todo.completed) return;
 
-          if (isTodoEditable) {
-            editTodo();
-          } else setIsTodoEditable((prev) => !prev);
+          if (isTodoEditable) editTodo();
+          else setIsTodoEditable((prev) => !prev);
         }}
         disabled={todo.completed}
       >
         {isTodoEditable ? "📁" : "✏️"}
       </button>
-      {/* Delete Todo Button */}
+
       <button
         className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0"
         onClick={() => deleteTodo(todo.id)}

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { useTodo } from "../contexts";
+import { useTodo } from "../hooks/useTodo";
 
 function TodoItem({ todo }) {
   const { updateTodo, deleteTodo, toggleComplete } = useTodo();
@@ -8,7 +8,7 @@ function TodoItem({ todo }) {
   const [todoMsg, setTodoMsg] = useState(todo.title);
 
   const editTodo = () => {
-    updateTodo(todo.id, { ...todo, todo: todoMsg });
+    updateTodo(todo.id, { ...todo, title: todoMsg });
     setIsTodoEditable(false);
   };
 
